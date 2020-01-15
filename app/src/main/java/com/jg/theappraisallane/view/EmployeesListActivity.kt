@@ -24,6 +24,9 @@ class EmployeesListActivity : AppCompatActivity(), EmployeesContract.EmployeesVi
     private val TAG = EmployeesListActivity::class.java.simpleName
     private lateinit var adapter : EmployeesAdapter
     val EXTRA_EMPLOYEE = "EXTRA_EMPLOYEE"
+    private var isLastPage: Boolean = false
+    private var isLoading: Boolean = false
+    private var page: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +40,21 @@ class EmployeesListActivity : AppCompatActivity(), EmployeesContract.EmployeesVi
         list.itemAnimator = DefaultItemAnimator()
         list.setHasFixedSize(true)
         list.adapter = adapter
+
+        list.addOnScrollListener(object : PaginationScrollListener(list.layoutManager as LinearLayoutManager) {
+            override fun isLastPage(): Boolean {
+                return isLastPage
+            }
+
+            override fun isLoading(): Boolean {
+                return isLoading
+            }
+
+            override fun loadMoreItems() {
+                isLoading = true
+                presenter.getEmployees(page++)
+            }
+        })
     }
 
     override fun showLoading() {
@@ -50,6 +68,7 @@ class EmployeesListActivity : AppCompatActivity(), EmployeesContract.EmployeesVi
     }
 
     override fun showEmployessList(list: MutableList<Employee>) {
+        isLoading = false
         adapter.populateList(list)
     }
 

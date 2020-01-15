@@ -13,8 +13,8 @@ class Repository {
         val TAG = Repository::class.java.simpleName
     }
 
-    fun getEmployees(listener: EmployeesListener){
-        AndroidNetworking.get("https://randomuser.me/api/?results=30")
+    fun getEmployees(listener: EmployeesListener, page: Int = 1){
+        AndroidNetworking.get("https://randomuser.me/api/?results=30&page=$page")
             .setTag(TAG)
             .setPriority(Priority.LOW)
             .build()

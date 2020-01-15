@@ -14,7 +14,7 @@ interface EmployeesContract {
     }
 
     interface EmployeesPresenter{
-        fun getEmployees()
+        fun getEmployees(page: Int = 1)
         fun onDestroy()
         fun employeeSelected(employee: Employee)
     }

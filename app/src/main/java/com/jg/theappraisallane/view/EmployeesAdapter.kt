@@ -35,9 +35,12 @@ class EmployeesAdapter(private val list: MutableList<Employee>, private val view
     }
 
     fun populateList( list: MutableList<Employee>){
-        this.list.clear()
+        val size = this.list.size
         this.list.addAll(list)
+        val sizeNew = this.list.size
         notifyDataSetChanged()
+        //notifyItemRangeChanged(size, sizeNew)
+
     }
 
     class EmployeeHolder(private val view: View, private val viewContract: EmployeesContract.EmployeesView): RecyclerView.ViewHolder(view){

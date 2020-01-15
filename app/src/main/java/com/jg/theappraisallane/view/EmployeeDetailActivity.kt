@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -37,15 +38,15 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.jg.theappraisallane.R.layout.activity_employee_detail)
+        setContentView(R.layout.activity_employee_detail)
         employee = intent.getSerializableExtra(EXTRA_EMPLOYEE) as Employee
-        imageView = findViewById(com.jg.theappraisallane.R.id.profile)
-        name = findViewById(com.jg.theappraisallane.R.id.name)
-        phone = findViewById(com.jg.theappraisallane.R.id.mobileNumber)
-        dob = findViewById(com.jg.theappraisallane.R.id.dob)
-        mail = findViewById(com.jg.theappraisallane.R.id.email)
-        phoneCall = findViewById(com.jg.theappraisallane.R.id.phoneCall)
-        address = findViewById(com.jg.theappraisallane.R.id.address)
+        imageView = findViewById(R.id.profile)
+        name = findViewById(R.id.name)
+        phone = findViewById(R.id.mobileNumber)
+        dob = findViewById(R.id.dob)
+        mail = findViewById(R.id.email)
+        phoneCall = findViewById(R.id.phoneCall)
+        address = findViewById(R.id.address)
 
         imageView.loadImage(employee.picture.large)
         name.text = getString(com.jg.theappraisallane.R.string.full_name, employee.name.first, employee.name.last)
@@ -117,7 +118,9 @@ class EmployeeDetailActivity : AppCompatActivity() {
     }
 
     private fun openMap(){
-        val gmmIntentUri = Uri.parse("q:${employee.location.street.name} ${employee.location.street.number}, ${employee.location.city}")
+        val address = "q:${employee.location.street.name} ${employee.location.street.number}, ${employee.location.city}"
+        Log.d(EmployeeDetailActivity::class.java.simpleName, "To Address: $address")
+        val gmmIntentUri = Uri.parse(address)
         val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
         mapIntent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
 

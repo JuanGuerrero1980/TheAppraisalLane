@@ -8,9 +8,9 @@ class EmployeesPresenter(private val view: EmployeesContract.EmployeesView): Emp
 
     private val repository = Repository()
 
-    override fun getEmployees() {
+    override fun getEmployees(page: Int) {
         view.showLoading()
-        repository.getEmployees(this)
+        repository.getEmployees(this, page)
     }
 
     override fun onDestroy() {
