@@ -16,5 +16,6 @@ interface EmployeesContract {
     interface EmployeesPresenter{
         fun getEmployees()
         fun onDestroy()
+        fun employeeSelected(employee: Employee)
     }
 }

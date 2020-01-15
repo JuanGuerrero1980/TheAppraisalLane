@@ -17,6 +17,10 @@ class EmployeesPresenter(private val view: EmployeesContract.EmployeesView): Emp
 
     }
 
+    override fun employeeSelected(employee: Employee) {
+        view.navigateToDetail(employee)
+    }
+
     override fun onSuccess(list: MutableList<Employee>) {
         view.hideLoading()
         view.showEmployessList(list)

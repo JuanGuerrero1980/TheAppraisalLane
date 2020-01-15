@@ -1,5 +1,6 @@
 package com.jg.theappraisallane.view
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ class EmployeesListActivity : AppCompatActivity(), EmployeesContract.EmployeesVi
     private lateinit var presenter: EmployeesPresenter
     private val TAG = EmployeesListActivity::class.java.simpleName
     private lateinit var adapter : EmployeesAdapter
+    val EXTRA_EMPLOYEE = "EXTRA_EMPLOYEE"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,10 +58,12 @@ class EmployeesListActivity : AppCompatActivity(), EmployeesContract.EmployeesVi
     }
 
     override fun onClick(employee: Employee) {
-        Toast.makeText(this, employee.name.first, Toast.LENGTH_LONG).show()
+        presenter.employeeSelected(employee)
     }
 
     override fun navigateToDetail(employee: Employee) {
-
+        val intent = Intent(this, EmployeeDetailActivity::class.java)
+        intent.putExtra(EXTRA_EMPLOYEE, employee)
+        startActivity(intent)
     }
 }

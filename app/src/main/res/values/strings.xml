@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TheAppraisalLane</string>
+    <string name="birth_date">Birth date</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="full_name">%s %s</string>
 </resources>
