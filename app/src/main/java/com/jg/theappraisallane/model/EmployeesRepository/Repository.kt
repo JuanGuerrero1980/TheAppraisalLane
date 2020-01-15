@@ -25,7 +25,7 @@ class Repository {
 
                     newsResponseNullable
                         .results?.asSequence()?.filterNotNull()
-                        ?.map { Employee(it.name, it.dob, it.picture, it.email, it.login, it.phone) }?.toList()
+                        ?.map { Employee(it.name, it.dob, it.picture, it.email, it.login, it.phone, it.location) }?.toList()
                         ?.forEach { employeesItemList?.add(it) }
 
                     if (employeesItemList != null && !employeesItemList.isEmpty()) {

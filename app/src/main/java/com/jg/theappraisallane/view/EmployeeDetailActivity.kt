@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.jg.theappraisallane.R
@@ -17,6 +18,8 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+
+
 
 class EmployeeDetailActivity : AppCompatActivity() {
 
@@ -34,17 +37,18 @@ class EmployeeDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_employee_detail)
+        setContentView(com.jg.theappraisallane.R.layout.activity_employee_detail)
         employee = intent.getSerializableExtra(EXTRA_EMPLOYEE) as Employee
-        imageView = findViewById(R.id.profile)
-        name = findViewById(R.id.name)
-        phone = findViewById(R.id.mobileNumber)
-        dob = findViewById(R.id.dob)
-        mail = findViewById(R.id.email)
-        phoneCall = findViewById(R.id.phoneCall)
+        imageView = findViewById(com.jg.theappraisallane.R.id.profile)
+        name = findViewById(com.jg.theappraisallane.R.id.name)
+        phone = findViewById(com.jg.theappraisallane.R.id.mobileNumber)
+        dob = findViewById(com.jg.theappraisallane.R.id.dob)
+        mail = findViewById(com.jg.theappraisallane.R.id.email)
+        phoneCall = findViewById(com.jg.theappraisallane.R.id.phoneCall)
+        address = findViewById(com.jg.theappraisallane.R.id.address)
 
         imageView.loadImage(employee.picture.large)
-        name.text = getString(R.string.full_name, employee.name.first, employee.name.last)
+        name.text = getString(com.jg.theappraisallane.R.string.full_name, employee.name.first, employee.name.last)
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
         dob.text = sdf.format(
             Date(
@@ -56,8 +60,9 @@ class EmployeeDetailActivity : AppCompatActivity() {
         )
         mail.text = employee.email
         phone.text = employee.phone
-
+        address.text = "${employee.location.street.name} ${employee.location.street.number}, ${employee.location.city}"
         phoneCall.setOnClickListener{checkPermission()}
+        address.setOnClickListener{openMap()}
     }
 
     private fun checkPermission() {
@@ -108,6 +113,18 @@ class EmployeeDetailActivity : AppCompatActivity() {
             == PackageManager.PERMISSION_GRANTED
         ) {
             startActivity(intent)
+        }
+    }
+
+    private fun openMap(){
+        val gmmIntentUri = Uri.parse("q:${employee.location.street.name} ${employee.location.street.number}, ${employee.location.city}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity")
+
+        if (mapIntent.resolveActivity(packageManager) != null) {
+            startActivity(mapIntent)
+        }else{
+            Toast.makeText(this, R.string.no_map_view, Toast.LENGTH_LONG).show()
         }
     }
 }

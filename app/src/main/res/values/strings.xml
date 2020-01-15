@@ -4,4 +4,6 @@
     <string name="phone">Phone</string>
     <string name="email">Email</string>
     <string name="full_name">%s %s</string>
+    <string name="address">Address</string>
+    <string name="no_map_view">The map cannot to show</string>
 </resources>

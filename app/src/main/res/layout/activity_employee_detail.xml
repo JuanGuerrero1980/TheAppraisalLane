@@ -153,6 +153,31 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/textViewLoc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:text="@string/address"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView27" />
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                app:layout_constraintBottom_toBottomOf="@+id/textViewLoc"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textViewLoc"
+                app:layout_constraintTop_toTopOf="@+id/textViewLoc" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
